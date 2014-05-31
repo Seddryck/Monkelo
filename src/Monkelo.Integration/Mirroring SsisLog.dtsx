@@ -1,0 +1,927 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/30/2014 4:59:35 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ATLANTIS"
+  DTS:CreatorName="ATLANTIS\Cédric"
+  DTS:DTSID="{14230E52-1948-4B8B-AEE1-701BE7E3ED9E}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.2344.23"
+  DTS:LocaleID="2060"
+  DTS:ObjectName="Mirroring SsisLog"
+  DTS:PackageType="5"
+  DTS:VersionBuild="13"
+  DTS:VersionGUID="{2788B1C0-086C-419C-913D-0A6CCA2FDE0A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Flat File Connection Manager]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{3E55A030-A684-44CE-A739-E174DA036B44}"
+      DTS:ObjectName="Flat File Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="2060"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x007C_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\Users\Cédric\Projects\Monkelo\data\ssislog.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="id"
+              DTS:DTSID="{315C78E1-1F58-4A2F-8F18-89C2C5D4D215}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="event"
+              DTS:DTSID="{C6B8479C-C253-4AE3-A1E1-E2E86B780A62}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="computer"
+              DTS:DTSID="{8B3852E5-97B8-4AAD-8E4A-51C23AEC336D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="operator"
+              DTS:DTSID="{6E5268ED-6559-4B80-997B-55D14F981270}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="source"
+              DTS:DTSID="{6E360543-B34E-480B-8997-080BB8BB1E7B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="sourceid"
+              DTS:DTSID="{943337A5-40AB-4BCE-8C4C-5D7E24A325AD}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="executionid"
+              DTS:DTSID="{B7064488-3968-4931-BE8B-E635C0E00727}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="starttime"
+              DTS:DTSID="{D23CBBD9-AB81-4D99-96D8-0B354AE2255C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="endtime"
+              DTS:DTSID="{AE5F17EB-3E35-4DE5-B357-01308DFEFCFA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="20"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="datacode"
+              DTS:DTSID="{6CCE659F-5BA9-49E0-A091-1BCEDBF397F5}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="4000"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="message"
+              DTS:DTSID="{AD3CB621-84A4-4599-95CD-FEB43C3CAA9B}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load mirror table"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{570885F3-7F93-4160-8C86-048768B2057C}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load mirror table"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load mirror table\Flat File Source"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="2060"
+              name="Flat File Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load mirror table\Flat File Source.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Flat File Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Flat File Connection Manager]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[id]"
+                      length="50"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[id]"
+                      name="id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[computer]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[computer]"
+                      length="255"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[computer]"
+                      name="computer"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[operator]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[operator]"
+                      length="255"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[operator]"
+                      name="operator"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[source]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[source]"
+                      length="255"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[source]"
+                      name="source"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[sourceid]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[sourceid]"
+                      length="50"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[sourceid]"
+                      name="sourceid"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[executionid]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[executionid]"
+                      length="50"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[executionid]"
+                      name="executionid"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[starttime]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[starttime]"
+                      length="50"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[starttime]"
+                      name="starttime"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[endtime]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[endtime]"
+                      length="50"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[endtime]"
+                      name="endtime"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[datacode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[datacode]"
+                      length="20"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[datacode]"
+                      name="datacode"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[message]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[message]"
+                      length="4000"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[message]"
+                      name="message"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[event]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[event]"
+                      length="255"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[event]"
+                      name="event"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[event]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="event" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[computer]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="computer" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[operator]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="operator" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[source]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="source" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[sourceid]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="sourceid" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[executionid]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="executionid" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[starttime]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="starttime" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[endtime]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="endtime" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[datacode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="datacode" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[message]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4000"
+                      name="message" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load mirror table\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[mir].[SsisLog]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load mirror table\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{B2CD3797-B487-4954-9E70-FC55B5CD3871}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[OleDb Monkelo]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[id]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="id"
+                      externalMetadataColumnId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[id]" />
+                    <inputColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[computer]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="computer"
+                      externalMetadataColumnId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Computer]"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[computer]" />
+                    <inputColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[operator]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="operator"
+                      externalMetadataColumnId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Operator]"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[operator]" />
+                    <inputColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[source]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="source"
+                      externalMetadataColumnId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Source]"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[source]" />
+                    <inputColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[sourceid]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="sourceid"
+                      externalMetadataColumnId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SourceId]"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[sourceid]" />
+                    <inputColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[executionid]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="executionid"
+                      externalMetadataColumnId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ExecutionId]"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[executionid]" />
+                    <inputColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[starttime]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="starttime"
+                      externalMetadataColumnId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[StartTime]"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[starttime]" />
+                    <inputColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[endtime]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="endtime"
+                      externalMetadataColumnId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EndTime]"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[endtime]" />
+                    <inputColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[datacode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="datacode"
+                      externalMetadataColumnId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DataCode]"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[datacode]" />
+                    <inputColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[message]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4000"
+                      cachedName="message"
+                      externalMetadataColumnId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Message]"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[message]" />
+                    <inputColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[event]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="event"
+                      externalMetadataColumnId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Event]"
+                      lineageId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output].Columns[event]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Event]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Event" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Computer]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Computer" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Operator]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Operator" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Source]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Source" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SourceId]"
+                      dataType="guid"
+                      name="SourceId" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ExecutionId]"
+                      dataType="guid"
+                      name="ExecutionId" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[StartTime]"
+                      dataType="dbTimeStamp"
+                      name="StartTime" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EndTime]"
+                      dataType="dbTimeStamp"
+                      name="EndTime" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DataCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="DataCode" />
+                    <externalMetadataColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Message]"
+                      codePage="1252"
+                      dataType="text"
+                      name="Message" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load mirror table\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load mirror table\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load mirror table\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load mirror table\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load mirror table.Paths[Flat File Source Output]"
+              endId="Package\Load mirror table\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Flat File Source Output"
+              startId="Package\Load mirror table\Flat File Source.Outputs[Flat File Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate mirror table"
+      DTS:CreationName="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:Description="Execute T-SQL Statement Task"
+      DTS:DTSID="{04132130-4CC8-46D4-ACC0-B056AB040D1B}"
+      DTS:ExecutableType="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate mirror table"
+      DTS:TaskContact="Execute T-SQL Statement Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{63562157-7089-4720-AAE4-0082C739C2E7}"
+          SQLTask:SqlStatementSource="truncate table mir.SsisLog"
+          SQLTask:ServerVersion="9"
+          SQLTask:ExtendedLogging="True"
+          SQLTask:LocalConnectionForLogging=""
+          SQLTask:TaskName=""
+          SQLTask:IgnoreDatabasesInNotOnlineState="False" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{A16FD868-3600-45F7-B007-9B541581E8F2}"
+      DTS:From="Package\Truncate mirror table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load mirror table" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="179.2,41.6"
+          Id="Package\Truncate mirror table"
+          TopLeft="202.857146311779,139.482354897364" />
+        <NodeLayout
+          Size="160,41.6"
+          Id="Package\Load mirror table"
+          TopLeft="220.000003746578,219.01176777744" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="296.228575029179,181.082354897364">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37.9294128800758"
+              Start="0,0"
+              End="0,30.4294128800758">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.4294128800758" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load mirror table">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\Load mirror table\Flat File Source"
+          TopLeft="148,109.6" />
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\Load mirror table\OLE DB Destination"
+          TopLeft="163.2,392.8" />
+        <EdgeLayout
+          Id="Package\Load mirror table.Paths[Flat File Source Output]"
+          TopLeft="223.2,151.2">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="25.6,241.6"
+              Start="0,0"
+              End="25.6,234.1">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,116.8" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,116.8"
+                    Point2="0,120.8"
+                    Point3="4,120.8" />
+                  <mssgle:LineSegment
+                    End="21.6,120.8" />
+                  <mssgle:CubicBezierSegment
+                    Point1="21.6,120.8"
+                    Point2="25.6,120.8"
+                    Point3="25.6,124.8" />
+                  <mssgle:LineSegment
+                    End="25.6,234.1" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load mirror table\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
