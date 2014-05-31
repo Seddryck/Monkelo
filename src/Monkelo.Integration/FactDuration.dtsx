@@ -1,0 +1,1501 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/31/2014 11:42:35 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ATLANTIS"
+  DTS:CreatorName="ATLANTIS\Cédric"
+  DTS:DTSID="{FFF3CBB0-60ED-46F1-BAAA-0C6953CB5491}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.2344.23"
+  DTS:LocaleID="2060"
+  DTS:ObjectName="FactDuration"
+  DTS:PackageType="5"
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{775E8EC8-64FA-494C-AA57-0B9A86921850}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load Staging Fact"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{AB363A47-A85D-4ECF-9B5C-85625A279FA5}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Staging Fact"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Staging Fact\Calculate duration milliSeconds"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Calculate duration milliSeconds"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load Staging Fact\Calculate duration milliSeconds.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Staging Fact\Calculate duration milliSeconds.Inputs[Derived Column Input].Columns[StartTime]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="StartTime"
+                      lineageId="Package\Load Staging Fact\Merge Start and End.Outputs[Merge Join Output].Columns[StartTime]" />
+                    <inputColumn
+                      refId="Package\Load Staging Fact\Calculate duration milliSeconds.Inputs[Derived Column Input].Columns[EndTime]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="EndTime"
+                      lineageId="Package\Load Staging Fact\Merge Start and End.Outputs[Merge Join Output].Columns[EndTime]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Staging Fact\Calculate duration milliSeconds.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Load Staging Fact\Calculate duration milliSeconds.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Calculate duration milliSeconds.Outputs[Derived Column Output].Columns[Duration]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load Staging Fact\Calculate duration milliSeconds.Outputs[Derived Column Output].Columns[Duration]"
+                      name="Duration"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[DATEDIFF]("ms",#{Package\Load Staging Fact\Merge Start and End.Outputs[Merge Join Output].Columns[StartTime]},#{Package\Load Staging Fact\Merge Start and End.Outputs[Merge Join Output].Columns[EndTime]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">DATEDIFF("ms",StartTime,EndTime)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Staging Fact\Calculate duration milliSeconds.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Load Staging Fact\Calculate duration milliSeconds.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Calculate duration milliSeconds.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging Fact\Calculate duration milliSeconds.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Calculate duration milliSeconds.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging Fact\Calculate duration milliSeconds.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging Fact\Filter duration events"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Filter duration events"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load Staging Fact\Filter duration events.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Staging Fact\Filter duration events.Inputs[Conditional Split Input].Columns[Event]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Event"
+                      lineageId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[Event]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Staging Fact\Filter duration events.Outputs[Start events]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Start events"
+                  synchronousInputId="Package\Load Staging Fact\Filter duration events.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[FINDSTRING](#{Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[Event]},"OnPreExecute",1) &gt; 0</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">FINDSTRING(Event,"OnPreExecute",1) &gt; 0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Staging Fact\Filter duration events.Outputs[End events]"
+                  description="Output 2 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="End events"
+                  synchronousInputId="Package\Load Staging Fact\Filter duration events.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[FINDSTRING](#{Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[Event]},"OnPostExecute",1) &gt; 0</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">FINDSTRING(Event,"OnPostExecute",1) &gt; 0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">1</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Staging Fact\Filter duration events.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\Load Staging Fact\Filter duration events.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Staging Fact\Filter duration events.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Load Staging Fact\Filter duration events.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Filter duration events.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging Fact\Filter duration events.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Filter duration events.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging Fact\Filter duration events.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging Fact\Get durations"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Get durations"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[mir].[SsisLog]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging Fact\Get durations.Connections[OleDbConnection]"
+                  connectionManagerID="{B2CD3797-B487-4954-9E70-FC55B5CD3871}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[OleDb Monkelo]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[Event]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].ExternalColumns[Event]"
+                      length="255"
+                      lineageId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[Event]"
+                      name="Event"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[SourceId]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].ExternalColumns[SourceId]"
+                      lineageId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[SourceId]"
+                      name="SourceId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[StartTime]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].ExternalColumns[StartTime]"
+                      lineageId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[StartTime]"
+                      name="StartTime"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[EndTime]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].ExternalColumns[EndTime]"
+                      lineageId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[EndTime]"
+                      name="EndTime"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].ExternalColumns[Event]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Event" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].ExternalColumns[Computer]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Computer" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].ExternalColumns[Operator]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Operator" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].ExternalColumns[Source]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Source" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].ExternalColumns[SourceId]"
+                      dataType="guid"
+                      name="SourceId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].ExternalColumns[ExecutionId]"
+                      dataType="guid"
+                      name="ExecutionId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].ExternalColumns[StartTime]"
+                      dataType="dbTimeStamp"
+                      name="StartTime" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].ExternalColumns[EndTime]"
+                      dataType="dbTimeStamp"
+                      name="EndTime" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].ExternalColumns[DataCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="DataCode" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].ExternalColumns[Message]"
+                      codePage="1252"
+                      dataType="text"
+                      name="Message" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Error Output].Columns[Event]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Error Output].Columns[Event]"
+                      name="Event" />
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Error Output].Columns[SourceId]"
+                      dataType="guid"
+                      lineageId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Error Output].Columns[SourceId]"
+                      name="SourceId" />
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Error Output].Columns[StartTime]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Error Output].Columns[StartTime]"
+                      name="StartTime" />
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Error Output].Columns[EndTime]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Error Output].Columns[EndTime]"
+                      name="EndTime" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging Fact\Lookup PackageId"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup PackageId"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dwh].[DimPackage]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dwh].[DimPackage]) [refTable]
+where [refTable].[PackageGuid] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="PackageId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PackageGuid" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DisplayName" dataType="DT_STR" length="255" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load Staging Fact\Merge Start and End.Outputs[Merge Join Output].Columns[SourceId]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging Fact\Lookup PackageId.Connections[OleDbConnection]"
+                  connectionManagerID="{B2CD3797-B487-4954-9E70-FC55B5CD3871}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[OleDb Monkelo]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Staging Fact\Lookup PackageId.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Staging Fact\Lookup PackageId.Inputs[Lookup Input].Columns[SourceId]"
+                      cachedDataType="guid"
+                      cachedName="SourceId"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Load Staging Fact\Merge Start and End.Outputs[Merge Join Output].Columns[SourceId]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PackageGuid</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Staging Fact\Lookup PackageId.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load Staging Fact\Lookup PackageId.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Lookup PackageId.Outputs[Lookup Match Output].Columns[PackageId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load Staging Fact\Lookup PackageId.Outputs[Lookup Match Output].Columns[PackageId]"
+                      name="PackageId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">PackageId</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Staging Fact\Lookup PackageId.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load Staging Fact\Lookup PackageId.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Staging Fact\Lookup PackageId.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load Staging Fact\Lookup PackageId.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Lookup PackageId.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging Fact\Lookup PackageId.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Lookup PackageId.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging Fact\Lookup PackageId.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging Fact\Merge Start and End"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
+              name="Merge Start and End"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Load Staging Fact\Merge Start and End.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Staging Fact\Merge Start and End.Inputs[Merge Join Left Input].Columns[SourceId]"
+                      cachedDataType="guid"
+                      cachedName="SourceId"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Load Staging Fact\Sort start events.Outputs[Sort Output].Columns[SourceId]" />
+                    <inputColumn
+                      refId="Package\Load Staging Fact\Merge Start and End.Inputs[Merge Join Left Input].Columns[StartTime]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="StartTime"
+                      lineageId="Package\Load Staging Fact\Sort start events.Outputs[Sort Output].Columns[StartTime]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Load Staging Fact\Merge Start and End.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Staging Fact\Merge Start and End.Inputs[Merge Join Right Input].Columns[SourceId]"
+                      cachedDataType="guid"
+                      cachedName="SourceId"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Load Staging Fact\Sort end events.Outputs[Sort Output].Columns[SourceId]" />
+                    <inputColumn
+                      refId="Package\Load Staging Fact\Merge Start and End.Inputs[Merge Join Right Input].Columns[EndTime]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="EndTime"
+                      lineageId="Package\Load Staging Fact\Sort end events.Outputs[Sort Output].Columns[EndTime]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Staging Fact\Merge Start and End.Outputs[Merge Join Output]"
+                  isSorted="true"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Merge Start and End.Outputs[Merge Join Output].Columns[StartTime]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load Staging Fact\Merge Start and End.Outputs[Merge Join Output].Columns[StartTime]"
+                      name="StartTime">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Load Staging Fact\Merge Start and End.Inputs[Merge Join Left Input].Columns[StartTime]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Merge Start and End.Outputs[Merge Join Output].Columns[EndTime]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load Staging Fact\Merge Start and End.Outputs[Merge Join Output].Columns[EndTime]"
+                      name="EndTime">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Load Staging Fact\Merge Start and End.Inputs[Merge Join Right Input].Columns[EndTime]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Merge Start and End.Outputs[Merge Join Output].Columns[SourceId]"
+                      dataType="guid"
+                      lineageId="Package\Load Staging Fact\Merge Start and End.Outputs[Merge Join Output].Columns[SourceId]"
+                      name="SourceId"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Load Staging Fact\Merge Start and End.Inputs[Merge Join Left Input].Columns[SourceId]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging Fact\Populate staging durations"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Populate staging durations"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stg].[FactDuration]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging Fact\Populate staging durations.Connections[OleDbConnection]"
+                  connectionManagerID="{B2CD3797-B487-4954-9E70-FC55B5CD3871}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[OleDb Monkelo]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Staging Fact\Populate staging durations.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Staging Fact\Populate staging durations.Inputs[OLE DB Destination Input].Columns[PackageId]"
+                      cachedDataType="i4"
+                      cachedName="PackageId"
+                      externalMetadataColumnId="Package\Load Staging Fact\Populate staging durations.Inputs[OLE DB Destination Input].ExternalColumns[PackageId]"
+                      lineageId="Package\Load Staging Fact\Lookup PackageId.Outputs[Lookup Match Output].Columns[PackageId]" />
+                    <inputColumn
+                      refId="Package\Load Staging Fact\Populate staging durations.Inputs[OLE DB Destination Input].Columns[Duration]"
+                      cachedDataType="i4"
+                      cachedName="Duration"
+                      externalMetadataColumnId="Package\Load Staging Fact\Populate staging durations.Inputs[OLE DB Destination Input].ExternalColumns[DurationMilliSeconds]"
+                      lineageId="Package\Load Staging Fact\Calculate duration milliSeconds.Outputs[Derived Column Output].Columns[Duration]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Fact\Populate staging durations.Inputs[OLE DB Destination Input].ExternalColumns[PackageId]"
+                      dataType="i4"
+                      name="PackageId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Fact\Populate staging durations.Inputs[OLE DB Destination Input].ExternalColumns[DurationMilliSeconds]"
+                      dataType="i8"
+                      name="DurationMilliSeconds" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Staging Fact\Populate staging durations.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Staging Fact\Populate staging durations.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Populate staging durations.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging Fact\Populate staging durations.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Populate staging durations.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging Fact\Populate staging durations.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging Fact\Sort end events"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort end events"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Load Staging Fact\Sort end events.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Staging Fact\Sort end events.Inputs[Sort Input].Columns[SourceId]"
+                      cachedDataType="guid"
+                      cachedName="SourceId"
+                      lineageId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[SourceId]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Staging Fact\Sort end events.Inputs[Sort Input].Columns[EndTime]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="EndTime"
+                      lineageId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[EndTime]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Staging Fact\Sort end events.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Sort end events.Outputs[Sort Output].Columns[SourceId]"
+                      dataType="guid"
+                      lineageId="Package\Load Staging Fact\Sort end events.Outputs[Sort Output].Columns[SourceId]"
+                      name="SourceId"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[SourceId]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Sort end events.Outputs[Sort Output].Columns[EndTime]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load Staging Fact\Sort end events.Outputs[Sort Output].Columns[EndTime]"
+                      name="EndTime">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[EndTime]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging Fact\Sort start events"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort start events"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Load Staging Fact\Sort start events.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Staging Fact\Sort start events.Inputs[Sort Input].Columns[SourceId]"
+                      cachedDataType="guid"
+                      cachedName="SourceId"
+                      lineageId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[SourceId]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Staging Fact\Sort start events.Inputs[Sort Input].Columns[StartTime]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="StartTime"
+                      lineageId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[StartTime]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Staging Fact\Sort start events.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Sort start events.Outputs[Sort Output].Columns[SourceId]"
+                      dataType="guid"
+                      lineageId="Package\Load Staging Fact\Sort start events.Outputs[Sort Output].Columns[SourceId]"
+                      name="SourceId"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[SourceId]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Staging Fact\Sort start events.Outputs[Sort Output].Columns[StartTime]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load Staging Fact\Sort start events.Outputs[Sort Output].Columns[StartTime]"
+                      name="StartTime">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output].Columns[StartTime]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Staging Fact.Paths[Derived Column Output]"
+              endId="Package\Load Staging Fact\Populate staging durations.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Load Staging Fact\Calculate duration milliSeconds.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Load Staging Fact.Paths[End events]"
+              endId="Package\Load Staging Fact\Sort end events.Inputs[Sort Input]"
+              name="End events"
+              startId="Package\Load Staging Fact\Filter duration events.Outputs[End events]" />
+            <path
+              refId="Package\Load Staging Fact.Paths[Lookup Match Output]"
+              endId="Package\Load Staging Fact\Calculate duration milliSeconds.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Load Staging Fact\Lookup PackageId.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load Staging Fact.Paths[Merge Join Output]"
+              endId="Package\Load Staging Fact\Lookup PackageId.Inputs[Lookup Input]"
+              name="Merge Join Output"
+              startId="Package\Load Staging Fact\Merge Start and End.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\Load Staging Fact.Paths[OLE DB Source Output]"
+              endId="Package\Load Staging Fact\Filter duration events.Inputs[Conditional Split Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Staging Fact\Get durations.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Load Staging Fact.Paths[Sort Output]"
+              endId="Package\Load Staging Fact\Merge Start and End.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\Load Staging Fact\Sort start events.Outputs[Sort Output]" />
+            <path
+              refId="Package\Load Staging Fact.Paths[Sort Output1]"
+              endId="Package\Load Staging Fact\Merge Start and End.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\Load Staging Fact\Sort end events.Outputs[Sort Output]" />
+            <path
+              refId="Package\Load Staging Fact.Paths[Start events]"
+              endId="Package\Load Staging Fact\Sort start events.Inputs[Sort Input]"
+              name="Start events"
+              startId="Package\Load Staging Fact\Filter duration events.Outputs[Start events]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Staging Fact"
+      DTS:CreationName="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:Description="Execute T-SQL Statement Task"
+      DTS:DTSID="{A5190BCB-BF06-4C56-8019-B00154CF5ECD}"
+      DTS:ExecutableType="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Staging Fact"
+      DTS:TaskContact="Execute T-SQL Statement Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{63562157-7089-4720-AAE4-0082C739C2E7}"
+          SQLTask:SqlStatementSource="truncate table stg.FactDuration"
+          SQLTask:ServerVersion="9"
+          SQLTask:ExtendedLogging="True"
+          SQLTask:LocalConnectionForLogging=""
+          SQLTask:TaskName=""
+          SQLTask:IgnoreDatabasesInNotOnlineState="False" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{21011984-11E5-4078-9141-2B6EA3E1E378}"
+      DTS:From="Package\Truncate Staging Fact"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Staging Fact" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="182.4,41.6"
+          Id="Package\Truncate Staging Fact"
+          TopLeft="227.428575301657,132.141178323818" />
+        <NodeLayout
+          Size="163.2,41.6"
+          Id="Package\Load Staging Fact"
+          TopLeft="234.285718275576,208.000002917122" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="317.257146788617,173.741178323818">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.2588245933032"
+              Start="0,0"
+              End="0,26.7588245933032">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.7588245933032" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Staging Fact">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="142.4,41.6"
+          Id="Package\Load Staging Fact\Get durations"
+          TopLeft="198.2857176625,45.8823535846591" />
+        <NodeLayout
+          Size="179.2,41.6"
+          Id="Package\Load Staging Fact\Filter duration events"
+          TopLeft="175.265309107199,154.426892922081" />
+        <EdgeLayout
+          Id="Package\Load Staging Fact.Paths[OLE DB Source Output]"
+          TopLeft="267.17551338485,87.4823535846591">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,66.9445393374222"
+              Start="0,0"
+              End="0,59.4445393374222">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,59.4445393374222" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\Load Staging Fact\Merge Start and End"
+          TopLeft="211.51020768363,298.19160082068" />
+        <NodeLayout
+          Size="156.8,41.6"
+          Id="Package\Load Staging Fact\Sort start events"
+          TopLeft="90.122450514368,224.779835085225" />
+        <NodeLayout
+          Size="153.6,41.6"
+          Id="Package\Load Staging Fact\Sort end events"
+          TopLeft="342.693883387063,225.391599799687" />
+        <EdgeLayout
+          Id="Package\Load Staging Fact.Paths[Start events]"
+          TopLeft="264.865309107199,196.026892922081">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-96.3428585928314,28.752942163144"
+              Start="0,0"
+              End="-96.3428585928314,21.252942163144">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.376471081572" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.376471081572"
+                    Point2="0,14.376471081572"
+                    Point3="-4,14.376471081572" />
+                  <mssgle:LineSegment
+                    End="-92.3428585928314,14.376471081572" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-92.3428585928314,14.376471081572"
+                    Point2="-96.3428585928314,14.376471081572"
+                    Point3="-96.3428585928314,18.376471081572" />
+                  <mssgle:LineSegment
+                    End="-96.3428585928314,21.252942163144" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-75.4446714839157,19.376471081572,54.546484375,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Staging Fact.Paths[End events]"
+          TopLeft="293.398642440533,196.026892922081">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="126.09524094653,29.3647068776062"
+              Start="0,0"
+              End="126.09524094653,21.8647068776062">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,7.90180154862264" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,7.90180154862264"
+                    Point2="0,11.9018015486226"
+                    Point3="4,11.9018015486226" />
+                  <mssgle:LineSegment
+                    End="122.09524094653,11.9018015486226" />
+                  <mssgle:CubicBezierSegment
+                    Point1="122.09524094653,11.9018015486226"
+                    Point2="126.09524094653,11.9018015486226"
+                    Point3="126.09524094653,15.9018015486226" />
+                  <mssgle:LineSegment
+                    End="126.09524094653,21.8647068776062" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="38.1450423482649,16.9018015486226,49.80515625,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Staging Fact.Paths[Sort Output]"
+          TopLeft="168.522450514368,266.379835085225">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="102.987757169262,31.8117657354545"
+              Start="0,0"
+              End="102.987757169262,24.3117657354545">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.9151039508108" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.9151039508108"
+                    Point2="0,18.9151039508108"
+                    Point3="4,18.9151039508108" />
+                  <mssgle:LineSegment
+                    End="98.9877571692621,18.9151039508108" />
+                  <mssgle:CubicBezierSegment
+                    Point1="98.9877571692621,18.9151039508108"
+                    Point2="102.987757169262,18.9151039508108"
+                    Point3="102.987757169262,22.9151039508108" />
+                  <mssgle:LineSegment
+                    End="102.987757169262,24.3117657354545" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Staging Fact.Paths[Sort Output1]"
+          TopLeft="419.493883387063,266.991599799687">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-91.9836757034325,31.2000010209924"
+              Start="0,0"
+              End="-91.9836757034325,23.7000010209924">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.5513519584279" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.5513519584279"
+                    Point2="0,18.5513519584279"
+                    Point3="-4,18.5513519584279" />
+                  <mssgle:LineSegment
+                    End="-87.9836757034325,18.5513519584279" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-87.9836757034325,18.5513519584279"
+                    Point2="-91.9836757034325,18.5513519584279"
+                    Point3="-91.9836757034325,22.5513519584279" />
+                  <mssgle:LineSegment
+                    End="-91.9836757034325,23.7000010209924" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="164.8,41.6"
+          Id="Package\Load Staging Fact\Lookup PackageId"
+          TopLeft="206.530615762093,381.042022150693" />
+        <EdgeLayout
+          Id="Package\Load Staging Fact.Paths[Merge Join Output]"
+          TopLeft="299.51020768363,339.79160082068">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-10.5795919215366,41.2504213300132"
+              Start="0,0"
+              End="-10.5795919215366,33.7504213300132">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.6252106650066" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.6252106650066"
+                    Point2="0,20.6252106650066"
+                    Point3="-4,20.6252106650066" />
+                  <mssgle:LineSegment
+                    End="-6.57959192153663,20.6252106650066" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-6.57959192153663,20.6252106650066"
+                    Point2="-10.5795919215366,20.6252106650066"
+                    Point3="-10.5795919215366,24.6252106650066" />
+                  <mssgle:LineSegment
+                    End="-10.5795919215366,33.7504213300132" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="204.8,41.6"
+          Id="Package\Load Staging Fact\Populate staging durations"
+          TopLeft="177.959186704096,522.62185606907" />
+        <NodeLayout
+          Size="224,41.6"
+          Id="Package\Load Staging Fact\Calculate duration milliSeconds"
+          TopLeft="182.040819426667,450.823535221494" />
+        <EdgeLayout
+          Id="Package\Load Staging Fact.Paths[Lookup Match Output]"
+          TopLeft="291.48571759438,422.642022150693">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28.1815130708009"
+              Start="0,0"
+              End="0,20.6815130708009">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.6815130708009" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,4.53606903540046,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Staging Fact.Paths[Derived Column Output]"
+          TopLeft="294.040819426667,492.423535221494">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-13.681632722571,30.1983208475758"
+              Start="0,0"
+              End="-13.681632722571,22.6983208475758">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,11.0991604237879" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11.0991604237879"
+                    Point2="0,15.0991604237879"
+                    Point3="-4,15.0991604237879" />
+                  <mssgle:LineSegment
+                    End="-9.68163272257095,15.0991604237879" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-9.68163272257095,15.0991604237879"
+                    Point2="-13.681632722571,15.0991604237879"
+                    Point3="-13.681632722571,19.0991604237879" />
+                  <mssgle:LineSegment
+                    End="-13.681632722571,22.6983208475758" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging Fact\Get durations">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging Fact\Lookup PackageId">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dwh].[DimPackage]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging Fact\Populate staging durations">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
