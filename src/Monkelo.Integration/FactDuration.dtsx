@@ -11,8 +11,8 @@
   DTS:LocaleID="2060"
   DTS:ObjectName="FactDuration"
   DTS:PackageType="5"
-  DTS:VersionBuild="9"
-  DTS:VersionGUID="{775E8EC8-64FA-494C-AA57-0B9A86921850}">
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{22DFF832-DCAE-4181-9827-BA63EA754F79}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -287,7 +287,7 @@
                 <connection
                   refId="Package\Load Staging Fact\Get durations.Connections[OleDbConnection]"
                   connectionManagerID="{B2CD3797-B487-4954-9E70-FC55B5CD3871}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[OleDb Monkelo]"
+                  connectionManagerRefId="Project.ConnectionManagers[Mirroring OleDb Monkelo]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -509,7 +509,7 @@ where [refTable].[PackageGuid] = ?</property>
                 <connection
                   refId="Package\Load Staging Fact\Lookup PackageId.Connections[OleDbConnection]"
                   connectionManagerID="{B2CD3797-B487-4954-9E70-FC55B5CD3871}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[OleDb Monkelo]"
+                  connectionManagerRefId="Project.ConnectionManagers[Staging OleDb Monkelo]"
                   description="Connection manager used to access lookup data."
                   name="OleDbConnection" />
               </connections>
@@ -773,7 +773,7 @@ where [refTable].[PackageGuid] = ?</property>
                 <connection
                   refId="Package\Load Staging Fact\Populate staging durations.Connections[OleDbConnection]"
                   connectionManagerID="{B2CD3797-B487-4954-9E70-FC55B5CD3871}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[OleDb Monkelo]"
+                  connectionManagerRefId="Project.ConnectionManagers[Staging OleDb Monkelo]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1122,13 +1122,13 @@ where [refTable].[PackageGuid] = ?</property>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="182.4,41.6"
-          Id="Package\Truncate Staging Fact"
-          TopLeft="227.428575301657,132.141178323818" />
-        <NodeLayout
           Size="163.2,41.6"
           Id="Package\Load Staging Fact"
           TopLeft="234.285718275576,208.000002917122" />
+        <NodeLayout
+          Size="182.4,41.6"
+          Id="Package\Truncate Staging Fact"
+          TopLeft="227.428575301657,132.141178323818" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="317.257146788617,173.741178323818">
@@ -1166,111 +1166,99 @@ where [refTable].[PackageGuid] = ?</property>
         <NodeLayout
           Size="179.2,41.6"
           Id="Package\Load Staging Fact\Filter duration events"
-          TopLeft="175.265309107199,154.426892922081" />
+          TopLeft="185.551023568078,133.015127915907" />
+        <NodeLayout
+          Size="164.8,41.6"
+          Id="Package\Load Staging Fact\Lookup PackageId"
+          TopLeft="206.530615762093,381.042022150693" />
+        <NodeLayout
+          Size="153.6,41.6"
+          Id="Package\Load Staging Fact\Sort end events"
+          TopLeft="342.693883387063,225.391599799687" />
+        <NodeLayout
+          Size="156.8,41.6"
+          Id="Package\Load Staging Fact\Sort start events"
+          TopLeft="90.122450514368,224.779835085225" />
+        <NodeLayout
+          Size="204.8,41.6"
+          Id="Package\Load Staging Fact\Populate staging durations"
+          TopLeft="177.959186704096,522.62185606907" />
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\Load Staging Fact\Merge Start and End"
+          TopLeft="211.51020768363,298.19160082068" />
+        <NodeLayout
+          Size="224,41.6"
+          Id="Package\Load Staging Fact\Calculate duration milliSeconds"
+          TopLeft="182.040819426667,450.823535221494" />
         <EdgeLayout
-          Id="Package\Load Staging Fact.Paths[OLE DB Source Output]"
-          TopLeft="267.17551338485,87.4823535846591">
+          Id="Package\Load Staging Fact.Paths[Start events]"
+          TopLeft="246.617690234745,174.615127915907">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,66.9445393374222"
+              EndConnector="-78.0952397203766,50.1647071693183"
               Start="0,0"
-              End="0,59.4445393374222">
+              End="-78.0952397203766,42.6647071693183">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,59.4445393374222" />
+                    End="0,16.3322441447325" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.3322441447325"
+                    Point2="0,20.3322441447325"
+                    Point3="-4,20.3322441447325" />
+                  <mssgle:LineSegment
+                    End="-74.0952397203766,20.3322441447325" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-74.0952397203766,20.3322441447325"
+                    Point2="-78.0952397203766,20.3322441447325"
+                    Point3="-78.0952397203766,24.3322441447325" />
+                  <mssgle:LineSegment
+                    End="-78.0952397203766,42.6647071693183" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-66.3208620476883,25.3322441447325,54.546484375,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Staging Fact.Paths[Sort Output1]"
+          TopLeft="419.493883387063,266.991599799687">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-91.9836757034325,31.2000010209924"
+              Start="0,0"
+              End="-91.9836757034325,23.7000010209924">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.5513519584279" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.5513519584279"
+                    Point2="0,18.5513519584279"
+                    Point3="-4,18.5513519584279" />
+                  <mssgle:LineSegment
+                    End="-87.9836757034325,18.5513519584279" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-87.9836757034325,18.5513519584279"
+                    Point2="-91.9836757034325,18.5513519584279"
+                    Point3="-91.9836757034325,22.5513519584279" />
+                  <mssgle:LineSegment
+                    End="-91.9836757034325,23.7000010209924" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="176,41.6"
-          Id="Package\Load Staging Fact\Merge Start and End"
-          TopLeft="211.51020768363,298.19160082068" />
-        <NodeLayout
-          Size="156.8,41.6"
-          Id="Package\Load Staging Fact\Sort start events"
-          TopLeft="90.122450514368,224.779835085225" />
-        <NodeLayout
-          Size="153.6,41.6"
-          Id="Package\Load Staging Fact\Sort end events"
-          TopLeft="342.693883387063,225.391599799687" />
-        <EdgeLayout
-          Id="Package\Load Staging Fact.Paths[Start events]"
-          TopLeft="264.865309107199,196.026892922081">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-96.3428585928314,28.752942163144"
-              Start="0,0"
-              End="-96.3428585928314,21.252942163144">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,10.376471081572" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,10.376471081572"
-                    Point2="0,14.376471081572"
-                    Point3="-4,14.376471081572" />
-                  <mssgle:LineSegment
-                    End="-92.3428585928314,14.376471081572" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-92.3428585928314,14.376471081572"
-                    Point2="-96.3428585928314,14.376471081572"
-                    Point3="-96.3428585928314,18.376471081572" />
-                  <mssgle:LineSegment
-                    End="-96.3428585928314,21.252942163144" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-75.4446714839157,19.376471081572,54.546484375,9.5537109375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Load Staging Fact.Paths[End events]"
-          TopLeft="293.398642440533,196.026892922081">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="126.09524094653,29.3647068776062"
-              Start="0,0"
-              End="126.09524094653,21.8647068776062">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,7.90180154862264" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,7.90180154862264"
-                    Point2="0,11.9018015486226"
-                    Point3="4,11.9018015486226" />
-                  <mssgle:LineSegment
-                    End="122.09524094653,11.9018015486226" />
-                  <mssgle:CubicBezierSegment
-                    Point1="122.09524094653,11.9018015486226"
-                    Point2="126.09524094653,11.9018015486226"
-                    Point3="126.09524094653,15.9018015486226" />
-                  <mssgle:LineSegment
-                    End="126.09524094653,21.8647068776062" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="38.1450423482649,16.9018015486226,49.80515625,9.7490234375"
-              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -1308,31 +1296,19 @@ where [refTable].[PackageGuid] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Load Staging Fact.Paths[Sort Output1]"
-          TopLeft="419.493883387063,266.991599799687">
+          Id="Package\Load Staging Fact.Paths[OLE DB Source Output]"
+          TopLeft="272.318370615289,87.4823535846591">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-91.9836757034325,31.2000010209924"
+              EndConnector="0,45.5327743312476"
               Start="0,0"
-              End="-91.9836757034325,23.7000010209924">
+              End="0,38.0327743312476">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,14.5513519584279" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,14.5513519584279"
-                    Point2="0,18.5513519584279"
-                    Point3="-4,18.5513519584279" />
-                  <mssgle:LineSegment
-                    End="-87.9836757034325,18.5513519584279" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-87.9836757034325,18.5513519584279"
-                    Point2="-91.9836757034325,18.5513519584279"
-                    Point3="-91.9836757034325,22.5513519584279" />
-                  <mssgle:LineSegment
-                    End="-91.9836757034325,23.7000010209924" />
+                    End="0,38.0327743312476" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1341,10 +1317,6 @@ where [refTable].[PackageGuid] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="164.8,41.6"
-          Id="Package\Load Staging Fact\Lookup PackageId"
-          TopLeft="206.530615762093,381.042022150693" />
         <EdgeLayout
           Id="Package\Load Staging Fact.Paths[Merge Join Output]"
           TopLeft="299.51020768363,339.79160082068">
@@ -1379,14 +1351,6 @@ where [refTable].[PackageGuid] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="204.8,41.6"
-          Id="Package\Load Staging Fact\Populate staging durations"
-          TopLeft="177.959186704096,522.62185606907" />
-        <NodeLayout
-          Size="224,41.6"
-          Id="Package\Load Staging Fact\Calculate duration milliSeconds"
-          TopLeft="182.040819426667,450.823535221494" />
         <EdgeLayout
           Id="Package\Load Staging Fact.Paths[Lookup Match Output]"
           TopLeft="291.48571759438,422.642022150693">
@@ -1408,6 +1372,42 @@ where [refTable].[PackageGuid] = ?</property>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
               BoundingBox="-48.19138671875,4.53606903540046,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Staging Fact.Paths[End events]"
+          TopLeft="303.684356901411,174.615127915907">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="115.809526485652,50.7764718837803"
+              Start="0,0"
+              End="115.809526485652,43.2764718837803">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.5801983387357" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.5801983387357"
+                    Point2="0,20.5801983387357"
+                    Point3="4,20.5801983387357" />
+                  <mssgle:LineSegment
+                    End="111.809526485652,20.5801983387357" />
+                  <mssgle:CubicBezierSegment
+                    Point1="111.809526485652,20.5801983387357"
+                    Point2="115.809526485652,20.5801983387357"
+                    Point3="115.809526485652,24.5801983387357" />
+                  <mssgle:LineSegment
+                    End="115.809526485652,43.2764718837803" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="33.0021851178259,25.5801983387357,49.80515625,9.7490234375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -1467,7 +1467,7 @@ where [refTable].[PackageGuid] = ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -1477,7 +1477,7 @@ where [refTable].[PackageGuid] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>

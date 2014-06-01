@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"?>
 <DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
-  DTS:ObjectName="SqlClient Monkelo"
+  DTS:ObjectName="Staging SqlClient Monkelo"
   DTS:DTSID="{63562157-7089-4720-AAE4-0082C739C2E7}"
   DTS:CreationName="ADO.NET:SQL">
   <DTS:ObjectData>

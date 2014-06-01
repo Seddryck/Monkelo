@@ -11,8 +11,8 @@
   DTS:LocaleID="2060"
   DTS:ObjectName="DimPackage"
   DTS:PackageType="5"
-  DTS:VersionBuild="13"
-  DTS:VersionGUID="{5EFACE6F-1A93-4A1B-9211-CE8233A408B6}">
+  DTS:VersionBuild="14"
+  DTS:VersionGUID="{8D37D5FD-8309-4BA6-8C3A-0CA285AF219B}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -174,7 +174,7 @@
                 <connection
                   refId="Package\Load Staging Table\Get Packages from SsisLog.Connections[OleDbConnection]"
                   connectionManagerID="{B2CD3797-B487-4954-9E70-FC55B5CD3871}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[OleDb Monkelo]"
+                  connectionManagerRefId="Project.ConnectionManagers[Staging OleDb Monkelo]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -336,7 +336,7 @@
                 <connection
                   refId="Package\Load Staging Table\Populate Staging DimPackage.Connections[OleDbConnection]"
                   connectionManagerID="{B2CD3797-B487-4954-9E70-FC55B5CD3871}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[OleDb Monkelo]"
+                  connectionManagerRefId="Project.ConnectionManagers[Staging OleDb Monkelo]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -569,7 +569,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{63562157-7089-4720-AAE4-0082C739C2E7}"
-          SQLTask:SqlStatementSource="merge&#xA;&#x9;dwh.DimPackage as target&#xA;using&#xA;&#x9;(&#xA;&#x9;&#x9;select SourceGuid, DisplayName from stg.DimPackage&#xA;&#x9;) as Source (SourceGuid, DisplayName)&#xA;on (source.SourceGuid=target.SourceGuid)&#xA;when MATCHED then &#xA;&#x9;update set target.DisplayName = source.DisplayName&#xA;when NOT MATCHED &#xA;&#x9;then insert values (source.SourceGuid, source.DisplayName)&#xA;;&#xA;"
+          SQLTask:SqlStatementSource="merge&#xA;&#x9;dwh.DimPackage as target&#xA;using&#xA;&#x9;(&#xA;&#x9;&#x9;select PackageGuid, DisplayName from stg.DimPackage&#xA;&#x9;) as Source (PackageGuid, DisplayName)&#xA;on (source.PackageGuid=target.PackageGuid)&#xA;when MATCHED then &#xA;&#x9;update set target.DisplayName = source.DisplayName&#xA;when NOT MATCHED &#xA;&#x9;then insert values (source.PackageGuid, source.DisplayName)&#xA;;&#xA;"
           SQLTask:ServerVersion="9"
           SQLTask:ExtendedLogging="True"
           SQLTask:LocalConnectionForLogging=""
@@ -719,17 +719,21 @@
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
+          Size="158.4,41.6"
+          Id="Package\Load Staging Table\Unique Packages"
+          TopLeft="137.714288059546,227.388238202659" />
+        <NodeLayout
           Size="219.2,41.6"
           Id="Package\Load Staging Table\Populate Staging DimPackage"
           TopLeft="108.000001839229,308.329416088909" />
         <NodeLayout
-          Size="204.8,41.6"
-          Id="Package\Load Staging Table\Get Packages from SsisLog"
-          TopLeft="113.714287650828,48.3294124425076" />
-        <NodeLayout
           Size="217.6,41.6"
           Id="Package\Load Staging Table\Filter for Package-only events"
           TopLeft="113.142859069669,143.764707898599" />
+        <NodeLayout
+          Size="204.8,41.6"
+          Id="Package\Load Staging Table\Get Packages from SsisLog"
+          TopLeft="113.714287650828,48.3294124425076" />
         <EdgeLayout
           Id="Package\Load Staging Table.Paths[OLE DB Source Output]"
           TopLeft="219.028573360248,89.9294124425076">
@@ -750,34 +754,6 @@
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="158.4,41.6"
-          Id="Package\Load Staging Table\Unique Packages"
-          TopLeft="137.714288059546,227.388238202659" />
-        <EdgeLayout
-          Id="Package\Load Staging Table.Paths[PackageEvents]"
-          TopLeft="219.428573564607,185.364707898599">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,42.0235303040607"
-              Start="0,0"
-              End="0,34.5235303040607">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,34.5235303040607" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-33.347578125,11.4302221832803,66.69515625,11.6630859375"
-              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -802,17 +778,33 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Staging Table.Paths[PackageEvents]"
+          TopLeft="219.428573564607,185.364707898599">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.0235303040607"
+              Start="0,0"
+              End="0,34.5235303040607">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.5235303040607" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-33.347578125,11.4302221832803,66.69515625,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Staging Table\Get Packages from SsisLog">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Load Staging Table\Populate Staging DimPackage">
     <Properties>
@@ -823,6 +815,14 @@
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging Table\Get Packages from SsisLog">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

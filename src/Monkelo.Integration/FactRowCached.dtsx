@@ -11,8 +11,8 @@
   DTS:LocaleID="2060"
   DTS:ObjectName="FactRowCached"
   DTS:PackageType="5"
-  DTS:VersionBuild="22"
-  DTS:VersionGUID="{969CCD24-6E79-46F5-8A75-E775A215712C}">
+  DTS:VersionBuild="23"
+  DTS:VersionGUID="{862658C5-79D4-48FF-8C48-898E8A2127D0}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -593,7 +593,7 @@ where
                 <connection
                   refId="Package\Load Staging FactRowCached\Get message with Rows Written Info.Connections[OleDbConnection]"
                   connectionManagerID="{B2CD3797-B487-4954-9E70-FC55B5CD3871}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[OleDb Monkelo]"
+                  connectionManagerRefId="Project.ConnectionManagers[Mirroring OleDb Monkelo]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -739,7 +739,7 @@ where [refTable].[PackageGuid] = ?</property>
                 <connection
                   refId="Package\Load Staging FactRowCached\Lookup DimPackage.Connections[OleDbConnection]"
                   connectionManagerID="{B2CD3797-B487-4954-9E70-FC55B5CD3871}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[OleDb Monkelo]"
+                  connectionManagerRefId="Project.ConnectionManagers[Staging OleDb Monkelo]"
                   description="Connection manager used to access lookup data."
                   name="OleDbConnection" />
               </connections>
@@ -885,7 +885,7 @@ where [refTable].[PackageGuid] = ?</property>
                 <connection
                   refId="Package\Load Staging FactRowCached\Populate FactRowCached.Connections[OleDbConnection]"
                   connectionManagerID="{B2CD3797-B487-4954-9E70-FC55B5CD3871}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[OleDb Monkelo]"
+                  connectionManagerRefId="Project.ConnectionManagers[Staging OleDb Monkelo]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1017,7 +1017,6 @@ where [refTable].[PackageGuid] = ?</property>
       DTS:refId="Package\Truncate Staging FactRowCached"
       DTS:CreationName="Microsoft.DbMaintenanceTSQLExecuteTask"
       DTS:Description="Execute T-SQL Statement Task"
-      DTS:Disabled="True"
       DTS:DTSID="{E9C0588B-1965-4288-98E1-03F8A66E6189}"
       DTS:ExecutableType="Microsoft.DbMaintenanceTSQLExecuteTask"
       DTS:LocaleID="-1"
@@ -1261,10 +1260,15 @@ where [refTable].[PackageGuid] = ?</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Load Staging FactRowCached\Get message with Rows Written Info">
+    design-time-name="Package\Load Staging FactRowCached\Populate FactRowCached">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
@@ -1292,15 +1296,10 @@ where [refTable].[PackageGuid] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Load Staging FactRowCached\Populate FactRowCached">
+    design-time-name="Package\Load Staging FactRowCached\Get message with Rows Written Info">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

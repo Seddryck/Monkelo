@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
-  DTS:ObjectName="OleDb Monkelo"
-  DTS:DTSID="{B2CD3797-B487-4954-9E70-FC55B5CD3871}"
+  DTS:ObjectName="Mirroring OleDb Monkelo"
+  DTS:DTSID="{3278549A-518A-4692-8CA4-ADAA05FFBA05}"
   DTS:CreationName="OLEDB">
   <DTS:ObjectData>
     <DTS:ConnectionManager

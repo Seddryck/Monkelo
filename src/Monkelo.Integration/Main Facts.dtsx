@@ -11,8 +11,8 @@
   DTS:LocaleID="2060"
   DTS:ObjectName="Main Facts"
   DTS:PackageType="5"
-  DTS:VersionBuild="2"
-  DTS:VersionGUID="{B79B88A8-59C7-4A94-9CC5-A8DAA57B41B3}">
+  DTS:VersionBuild="3"
+  DTS:VersionGUID="{14028B21-8C47-453B-BAEF-56CEA7EDF3FD}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -34,6 +34,40 @@
         </ExecutePackageTask>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Run FactRowCached"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{24aaef19-6f65-49d5-8508-af125070c81e}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Run FactRowCached"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>FactRowCached.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Run FactRowWritten"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{C10F7110-B408-431D-8670-D4827143F827}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Run FactRowWritten"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>FactRowWritten.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -50,7 +84,15 @@
         <NodeLayout
           Size="160,41.6"
           Id="Package\Run FactDuration"
-          TopLeft="247.428575642255,111.341178032106" />
+          TopLeft="12.0000002043588,15.905882576015" />
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\Run FactRowWritten"
+          TopLeft="203.428574892939,18.9647061483258" />
+        <NodeLayout
+          Size="174.4,41.6"
+          Id="Package\Run FactRowCached"
+          TopLeft="432.000007356916,19.6235282620757" />
       </GraphLayout>
     </LayoutInfo>
   </Package>

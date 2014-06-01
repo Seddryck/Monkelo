@@ -441,7 +441,7 @@ where
                 <connection
                   refId="Package\Load Staging FactRowWritten\Get message with Rows Written Info.Connections[OleDbConnection]"
                   connectionManagerID="{B2CD3797-B487-4954-9E70-FC55B5CD3871}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[OleDb Monkelo]"
+                  connectionManagerRefId="Project.ConnectionManagers[Mirroring OleDb Monkelo]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
