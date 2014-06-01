@@ -68,9 +68,7 @@
     <Build Include="dwh\dwh.sql" />
     <Build Include="mir\mir.sql" />
     <Build Include="stg\stg.sql" />
-    <Build Include="dwh\DimSource.sql" />
     <Build Include="mir\SsisLog.sql" />
-    <Build Include="stg\DimSource.sql" />
     <Build Include="dwh\DimPackage.sql" />
     <Build Include="stg\DimPackage.sql" />
     <Build Include="dwh\FactDuration.sql" />
