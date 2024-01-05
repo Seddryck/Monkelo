@@ -1,7 +1,8 @@
 repo_name: Seddryck/Monkelo
 report_id: 6b3dc10a92c0c955736de4c57e6daefc
+version: 0.1
 repo_type: Public
-timestamp: '2023-11-12T20:23:58+00:00'
+timestamp: '2024-01-05T08:48:03+00:00'
 requested_by: Seddryck
 provider: github
 branch: master
@@ -15,7 +16,8 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/2271/default_068d33483bba6b81ee13fbd4dc7aab9780896a54.png
-  detection_source: src/Monkelo.Database/stg/stg.sql
+  detection_source_url: https://github.com/Seddryck/Monkelo/blob/master/src/Monkelo.Database/dwh/DimPackage.sql
+  detection_source: src/Monkelo.Database/dwh/DimPackage.sql
   last_updated_by: Cédric L. Charlier
   last_updated_on: 2014-05-31 14:39:30.000000000 Z
 - name: Microsoft SQL Server
@@ -27,7 +29,7 @@ tools:
   category: Data Stores
   sub_category: Databases
   image_url: https://img.stackshare.io/service/1027/sql_server.png
-  detection_source_url: src/Monkelo.Database/Monkelo.Database.sqlproj
+  detection_source_url: https://github.com/Seddryck/Monkelo/blob/master/src/Monkelo.Database/Monkelo.Database.sqlproj
   detection_source: src/Monkelo.Database/Monkelo.Database.sqlproj
   last_updated_by: Cédric L. Charlier
   last_updated_on: 2014-05-31 14:35:33.000000000 Z
@@ -39,6 +41,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/Seddryck/Monkelo
   detection_source: Repo Metadata
 - name: Visual Studio
   description: State-of-the-art tools and services that you can use to create great
@@ -49,6 +52,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Integrated Development Environment
   image_url: https://img.stackshare.io/service/1451/SR2hUhQN.png
+  detection_source_url: https://github.com/Seddryck/Monkelo/blob/master/src/Monkelo.sln
   detection_source: src/Monkelo.sln
   last_updated_by: Cédric L. Charlier
   last_updated_on: 2014-05-31 14:35:33.000000000 Z
